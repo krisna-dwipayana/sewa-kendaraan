@@ -15,7 +15,6 @@ use App\Http\Controllers\KatalogController;
 */
 
 // HOME PAGE
-// HOME PAGE - AKU TAMBAHIN ->name('home') DI SINI SAYANG
 Route::get('/', function () {
     $kendaraans = \App\Models\Kendaraan::where('status', 'Tersedia')->get();
     return view('user.home', compact('kendaraans')); 
@@ -29,29 +28,31 @@ Route::get('/dashboard', function () {
     return redirect()->route('user.katalog');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// AUTHENTICATED ROUTES
+// AUTHENTICATED ROUTES (Profil & Sewa untuk User Biasa)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // RUTE SEWA DIPINDAHKAN KE SINI (Harus Login, tapi TIDAK harus Admin)
+    Route::get('/sewa/{id}', [KatalogController::class, 'sewa'])->name('user.sewa');
+    Route::post('/sewa/{id}', [KatalogController::class, 'prosesSewa'])->name('user.proses_sewa');
+    Route::get('/riwayat', [KatalogController::class, 'riwayat'])->name('user.riwayat');
 });
 
-// KATALOG & USER PAGES
+// KATALOG & HALAMAN PUBLIK (Bebas diakses tanpa login)
 Route::get('/katalog', [KatalogController::class, 'index'])->name('user.katalog');
-Route::get('/sewa/{id}', [KatalogController::class, 'sewa'])->name('user.sewa');
-Route::post('/sewa/{id}', [KatalogController::class, 'prosesSewa'])->name('user.proses_sewa');
-Route::get('/riwayat', [KatalogController::class, 'riwayat'])->middleware('auth')->name('user.riwayat');
 Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
 Route::get('/katalog/detail/{id}', [KatalogController::class, 'show'])->name('user.detail');
 
-// STATIC PAGES (YANG BARU KAMU TAMBAHIN)
+// STATIC PAGES
 Route::get('/asuransi', function () { return view('user.asuransi'); })->name('user.asuransi');
 Route::get('/tentang-kami', function () { return view('user.tentang-kami'); })->name('user.tentang-kami');
 Route::get('/faq', function () { return view('user.faq'); })->name('user.faq');
 Route::get('/kontak', function () { return view('user.kontak'); })->name('user.kontak');
 
 
-// ADMIN ROUTES
+// ADMIN ROUTES (Ruangan VIP Khusus Admin)
 Route::middleware(['auth', 'admin'])->group(function () {
     
     Route::get('/admin/dashboard', function () {
@@ -69,15 +70,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/kendaraan/{id}/edit', [KendaraanController::class, 'edit'])->name('admin.kendaraan.edit');
     Route::put('/admin/kendaraan/{id}', [KendaraanController::class, 'update'])->name('admin.kendaraan.update');
     Route::delete('/admin/kendaraan/{id}', [KendaraanController::class, 'destroy'])->name('admin.kendaraan.destroy');
-    // Rute untuk detail kendaraan
-    
     
     // Transaksi & Laporan
     Route::get('/admin/transaksi', [TransaksiController::class, 'index'])->name('admin.transaksi');
     Route::patch('/admin/transaksi/{id}/status', [TransaksiController::class, 'updateStatus'])->name('admin.transaksi.status');
     Route::get('/admin/laporan', [\App\Http\Controllers\LaporanController::class, 'index'])->name('admin.laporan');
-    // Tambahkan ini jika belum ada
     
+    // NOTE: Rute /sewa nyasar di sini SUDAH DIHAPUS.
 });
 
 require __DIR__.'/auth.php';

@@ -6,26 +6,30 @@
         <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl">Pilihan Armada Terbaik Buat Kamu</h2>
         
         <div class="flex flex-col md:flex-row gap-4 mt-6 items-center">
-            <form action="{{ route('user.katalog') }}" method="GET" class="relative flex items-center w-full max-w-md">
-                @if(request('kategori')) <input type="hidden" name="kategori" value="{{ request('kategori') }}"> @endif
-                
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama kendaraan..." 
-                    class="w-full pl-6 pr-14 py-3.5 border border-gray-200 rounded-full shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
-                <button type="submit" class="absolute right-2 top-1.5 bg-blue-600 hover:bg-blue-700 text-white p-2.5 rounded-full transition cursor-pointer border-none shadow-sm">
-                    🔍
-                </button>
-            </form>
+            <form action="{{ route('user.katalog') }}" method="GET" class="flex items-center gap-2 w-full max-w-md">
+    @if(request('kategori')) <input type="hidden" name="kategori" value="{{ request('kategori') }}"> @endif
 
-            <form action="{{ route('user.katalog') }}" method="GET" class="flex gap-2 w-full md:w-auto">
-                @if(request('kategori')) <input type="hidden" name="kategori" value="{{ request('kategori') }}"> @endif
-                <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="Min Harga" class="border p-3 rounded-full text-sm w-32 focus:ring-2 focus:ring-blue-500 outline-none">
-                <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Max Harga" class="border p-3 rounded-full text-sm w-32 focus:ring-2 focus:ring-blue-500 outline-none">
-                <button type="submit" class="bg-gray-800 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-black transition">Filter</button>
-            </form>
-        </div>
+    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama kendaraan..."
+        class="w-full px-5 py-3 border border-gray-300 rounded-full shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
+
+    <button type="submit" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-sm font-bold rounded-full transition shadow-sm whitespace-nowrap">
+        Cari
+    </button>
+</form>
+
+<form action="{{ route('user.katalog') }}" method="GET" class="flex gap-2 w-full md:w-auto">
+    @if(request('kategori')) <input type="hidden" name="kategori" value="{{ request('kategori') }}"> @endif
+    
+    <input type="number" name="min_price" value="{{ request('min_price') }}" placeholder="Min Harga" class="border p-3 rounded-full text-sm w-32 focus:ring-2 focus:ring-blue-500 outline-none">
+    <input type="number" name="max_price" value="{{ request('max_price') }}" placeholder="Max Harga" class="border p-3 rounded-full text-sm w-32 focus:ring-2 focus:ring-blue-500 outline-none">
+    
+    <button type="submit" class="shrink-0 bg-gray-800 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-black transition shadow-sm whitespace-nowrap">
+        Filter
+    </button>
+</form>
 
         @if(request('search') && $kendaraans->isEmpty())
-            <p class="text-red-500 text-sm mt-4">Armada "<b>{{ request('search') }}</b>" nggak ketemu sayang. Coba kata kunci lain!</p>
+            <p class="text-red-500 text-sm mt-4">Armada "<b>{{ request('search') }}</b>" Tidak Ditemukan. Coba kata kunci lain!</p>
         @endif
 
         <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 mt-4">
@@ -65,9 +69,9 @@
                             <span class="text-2xl font-extrabold text-blue-600">Rp {{ number_format($k->harga_sewa, 0, ',', '.') }}</span>
                         </div>
                         
-                        <a href="{{ route('user.detail', $k->id) }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition shadow-md">
-                            Lihat Detail
-                        </a>
+                        <a href="{{ route('user.detail', $k->id) }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 rounded-xl transition duration-300 shadow-lg">
+    Lihat Detail
+</a>
                     </div>
                 </div>
             </div>

@@ -76,9 +76,17 @@
                         </p>
                     </div>
 
-                    <a href="{{ route('user.sewa', $k->id) }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition duration-300 shadow-md">
-    Booking Sekarang
-</a>
+                    @auth
+    <a href="{{ route('user.sewa', $k->id) }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 rounded-xl transition duration-300 shadow-lg">
+        Booking Sekarang
+    </a>
+@endauth
+
+@guest
+    <a href="{{ route('register') }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 rounded-xl transition duration-300 shadow-lg">
+        Booking Sekarang
+    </a>
+@endguest
                 </div>
             @empty
                 <div class="col-span-full text-center py-12">
