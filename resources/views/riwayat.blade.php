@@ -17,8 +17,8 @@
 
     <div class="max-w-5xl mx-auto px-4 py-12">
         <div class="mb-8">
-            <h2 class="text-3xl font-extrabold text-gray-900">Riwayat Penyewaan Lu</h2>
-            <p class="text-gray-500 mt-1">Pantau semua status pesanan rental motor lu di sini cuy.</p>
+            <h2 class="text-3xl font-extrabold text-gray-900">Riwayat Penyewaan Mu</h2>
+            <p class="text-gray-500 mt-1">Pantau semua status pesanan rental motor mu di sini.</p>
         </div>
 
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">

@@ -15,7 +15,7 @@
 
         <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-1">Form Penyewaan</h2>
-            <p class="text-gray-500 text-sm mb-6">Silakan tentukan durasi sewa armada lu, cuy.</p>
+            <p class="text-gray-500 text-sm mb-6">Silakan tentukan durasi sewa armada mu</p>
 
             <div class="bg-blue-50 p-4 rounded-xl flex items-center justify-between mb-6">
                 <div>
