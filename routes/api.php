@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\KendaraanController; // <-- Ini wajib ada agar controllernya dipanggil
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 }); // <-- Rute bawaan ditutup di sini
 
 // Rute baru ditaruh di LUAR kurung di atas
-Route::get('/kendaraan', [KendaraanController::class, 'index']);
+
+Route::get('/katalog', [KendaraanController::class, 'index']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+

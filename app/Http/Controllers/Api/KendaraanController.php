@@ -3,32 +3,30 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kendaraan;
 use Illuminate\Http\Request;
-use App\Models\Kendaraan; // Memanggil model Kendaraan
 
 class KendaraanController extends Controller
 {
     public function index()
     {
-        // 1. Ambil data kendaraan dari database (beserta data relasi kategorinya jika ada)
-        $kendaraan = Kendaraan::with('kategori')
-                              ->where('status', 'Tersedia')
-                              ->get();
+        // Mengambil seluruh data kendaraan beserta relasi kategori-nya
+        // Pastikan model Kendaraan sudah memiliki relasi 'kategori' yang terdefinisi
+        $kendaraan = Kendaraan::with('kategori')->get();
 
-        // 2. Jika data kosong
         if ($kendaraan->isEmpty()) {
             return response()->json([
-                'success' => false,
-                'message' => 'Data kendaraan tidak ditemukan',
-                'data'    => null
-            ], 404); // 404 = Not Found
+                'status' => 'error',
+                'message' => 'Data kendaraan tidak ditemukan.',
+                'data' => null
+            ], 404);
         }
 
-        // 3. Jika data ada, kembalikan dalam format JSON
+        // Mengembalikan respons dalam format JSON standar
         return response()->json([
-            'success' => true,
-            'message' => 'Daftar kendaraan berhasil diambil',
-            'data'    => $kendaraan
-        ], 200); // 200 = OK
+            'status' => 'success',
+            'message' => 'Data katalog kendaraan berhasil diambil.',
+            'data' => $kendaraan
+        ], 200);
     }
 }
