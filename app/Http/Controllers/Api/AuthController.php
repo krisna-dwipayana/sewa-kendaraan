@@ -76,4 +76,17 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
         ], 200);
     }
+
+
+    // --- FUNGSI LOGOUT ---
+    public function logout(Request $request)
+    {
+        // Menghapus token yang saat ini digunakan oleh pengguna
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil logout dan token telah dihapus.',
+        ], 200);
+    }
 }

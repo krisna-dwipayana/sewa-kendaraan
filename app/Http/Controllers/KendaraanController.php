@@ -15,6 +15,20 @@ class KendaraanController extends Controller
         return view('admin.kendaraan.index', compact('kendaraans'));
     }
 
+    // --- FUNGSI KHUSUS UNTUK API FLUTTER ---
+    public function apiIndex()
+    {
+        // Mengambil semua data kendaraan beserta relasi kategori-nya
+        // (Pastikan nama model 'Kendaraan' sesuai dengan yang Anda gunakan)
+        $kendaraan = \App\Models\Kendaraan::with('kategori')->get();
+
+        // Kembalikan data dalam format JSON murni, bukan view/HTML
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data katalog berhasil diambil',
+            'data' => $kendaraan
+        ], 200);
+    }
     // 2. Nampilin halaman form tambah kendaraan
     public function create()
 {
